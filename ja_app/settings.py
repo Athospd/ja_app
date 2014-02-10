@@ -57,16 +57,21 @@ WSGI_APPLICATION = 'ja_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['RDS_DB_NAME'],
-        'USER': os.environ['RDS_USERNAME'],
-        'PASSWORD': os.environ['RDS_PASSWORD'],
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
+DATABASES = {}
+
+try:
+    from local_settings import *
+except ImportError, e:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -88,9 +93,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Coisas para configurar o Admin Site (django.contrib.admin)
+STATIC_ROOT = 'static'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-	'django.contrib.messages.context_processors.messages'
-)
+#TEMPLATE_CONTEXT_PROCESSORS = (
+#	'django.contrib.messages.context_processors.messages'
+#)
 
 STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static')

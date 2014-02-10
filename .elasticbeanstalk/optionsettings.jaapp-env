@@ -31,7 +31,7 @@ PARAM5=
 NumProcesses=1
 NumThreads=15
 StaticFiles=/static/=static/
-WSGIPath=application.py
+WSGIPath=ja_app/wsgi.py
 
 [aws:elasticbeanstalk:container:python:staticfiles]
 /static/=static/
